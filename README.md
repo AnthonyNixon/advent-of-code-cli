@@ -1,14 +1,14 @@
-#AOC - Advent Of Code
+# AOC - Advent Of Code
 This tool will automatically download the input file for [AOC's challenge](http://adventofcode.com/) and provide boilerplate code to open the input file so you can immediately start coding. 
 
 
 
-###AOC Session Cookie is REQUIRED
+### AOC Session Cookie is REQUIRED
 [Instructions for retreving](https://blog.ajn.me/aoc-session/)
 
 Add this session to an environment variable named AOC_SESSION. (If you cannot set an environment variable, or don't want to, you can run the script with the flag --session <your session token> instead.
 
-##Usage
+## Usage
 
 This will download today's challenge with go boilerplate
 
@@ -23,12 +23,12 @@ This will download today's challenge with python boilerplate
 ```./aoc get --lang python```
 
 
-####All Custom Options:
+#### All Custom Options:
 
 ```./aoc get [dayNum] [--lang (go|python)] [--year (2015|2016|2017)] [--session session-here]```
 
 
-##Development
+## Development
 
 Glide is needed for dep management
 
