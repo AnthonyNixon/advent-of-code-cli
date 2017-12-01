@@ -1,0 +1,3 @@
+package: github.com/AnthonyNixon/advent-of-code-boilerplate
+import:
+  - package: github.com/alecthomas/kingpin
