@@ -23,7 +23,7 @@ var (
 	sessionToken = app.Flag("session", "Your session token. Visit https://blog.ajn.me/aoc-session for instructions to get this.").Envar("AOC_SESSION").Required().String()
 	lang         = app.Flag("lang", "Which language the boilerplate code should be generated in.").Default("go").String()
 	year         = app.Flag("year", "The year to be used.").Default(fmt.Sprintf("%d", time.Now().Year())).Int()
-)
+	)
 
 func main() {
 	app.Version(Version)
@@ -64,31 +64,38 @@ func main() {
 
 		if !dirExists {
 			os.MkdirAll(directory, 0777)
-		}
-
-		f, err := os.Create(directory + "input.txt")
-		check(err)
-
-		f.WriteString(string(body))
-		f.Close()
-
-		switch strings.ToLower(*lang) {
-		case "go":
-			f, err := os.Create(directory + "main.go")
-			check(err)
-			decoded, err := base64.StdEncoding.DecodeString(golang)
+			f, err := os.Create(directory + "input.txt")
 			check(err)
 
-			f.WriteString(string(decoded))
+			f.WriteString(string(body))
 			f.Close()
-		case "python":
-			f, err := os.Create(directory + "main.py")
-			check(err)
-			decoded, err := base64.StdEncoding.DecodeString(python)
+
+			f, err = os.Create(directory + "input-test.txt")
 			check(err)
 
-			f.WriteString(string(decoded))
+			f.WriteString("")
 			f.Close()
+
+			switch strings.ToLower(*lang) {
+			case "go":
+				f, err := os.Create(directory + "main.go")
+				check(err)
+				decoded, err := base64.StdEncoding.DecodeString(golang)
+				check(err)
+
+				f.WriteString(string(decoded))
+				f.Close()
+			case "python":
+				f, err := os.Create(directory + "main.py")
+				check(err)
+				decoded, err := base64.StdEncoding.DecodeString(python)
+				check(err)
+
+				f.WriteString(string(decoded))
+				f.Close()
+			}
+		} else {
+			fmt.Printf("Day already initialized. Please delete this day's directory to re-initialize if necessary.")
 		}
 	}
 }

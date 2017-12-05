@@ -3,11 +3,24 @@ package main
 import (
 	"bufio"
 	"os"
+	"flag"
+	"fmt"
 )
 
 func main() {
-	input_file, err := readLines("input.txt")
+	boolPtr := flag.Bool("test", false, "test mode")
+	flag.Parse()
+
+	var filename string
+	if *boolPtr {
+		filename = "input-test.txt"
+	} else {
+		filename = "input.txt"
+	}
+	input_file, err := readLines(filename)
 	check(err)
+	// Your Code goes below!
+
 
 }
 
