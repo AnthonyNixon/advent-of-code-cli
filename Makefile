@@ -21,15 +21,15 @@ fmt: ## run go fmt
 
 build-windows: files ## build the go packages
 	@echo "Running $@"
-	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -i -ldflags "-X main.Version=${VERSION}" -o bin/windows/${BINARY}.exe .
+	@CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -ldflags "-X main.Version=${VERSION}" -o bin/windows/${BINARY}.exe .
 
 build-darwin: files ## build the go packages
 	@echo "Running $@"
-	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -i -ldflags "-X main.Version=${VERSION}" -o bin/darwin/${BINARY} .
+	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "-X main.Version=${VERSION}" -o bin/darwin/${BINARY} .
 
 build-linux: files ## build the go packages for Linux (useful to copy the binary into docker)
 	@echo "Running $@"
-	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -i -ldflags "-X main.Version=${VERSION}" -o bin/linux/${BINARY} .
+	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-X main.Version=${VERSION}" -o bin/linux/${BINARY} .
 
 test: ## run test
 	@echo "Running $@"

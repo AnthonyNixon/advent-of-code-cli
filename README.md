@@ -30,10 +30,6 @@ This will download today's challenge with python boilerplate
 
 ## Development
 
-Glide is needed for dep management
-
-```glide update```
-
 To produce the binaries needed run
 
 ```
