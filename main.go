@@ -41,7 +41,6 @@ func main() {
 		req.AddCookie(&cookie)
 		req.Header.Set("User-Agent", "github.com/AnthonyNixon/advent-of-code-boilerplate by Anthony@Nixon.dev")
 		var client = &http.Client{}
-		fmt.Printf("%v+", req)
 		resp, err := client.Do(req)
 		check(err)
 		defer resp.Body.Close()

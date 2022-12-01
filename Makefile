@@ -1,7 +1,7 @@
-BINARY=aoc
-PACKAGES=$(shell glide novendor)
+PACKAGES=$(shell go get)
 SOURCE_FILES=$(shell find . -name '*.go' -not -path '*vendor*')
 VERSION?=$(shell git describe --match 'v[0-9].*' --dirty='.m' --always --tags)
+BINARY:=aoc_${VERSION}
 
 .PHONY: all build check clean coverage fmt help lint test vet binaries files
 
@@ -25,11 +25,11 @@ build-windows: files ## build the go packages
 
 build-darwin: files ## build the go packages
 	@echo "Running $@"
-	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "-X main.Version=${VERSION}" -o bin/darwin/${BINARY} .
+	@CGO_ENABLED=0 GOOS=darwin GOARCH=amd64 go build -ldflags "-X main.Version=${VERSION}" -o bin/darwin/${BINARY}-darwin-amd64 .
 
 build-linux: files ## build the go packages for Linux (useful to copy the binary into docker)
 	@echo "Running $@"
-	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-X main.Version=${VERSION}" -o bin/linux/${BINARY} .
+	@CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-X main.Version=${VERSION}" -o bin/debian/${BINARY}-debian-amd64 .
 
 test: ## run test
 	@echo "Running $@"
