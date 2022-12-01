@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Binaries
-        uses: make binaries
+        run: make binaries
 
   semantic-release:
     runs-on: ubuntu-latest
