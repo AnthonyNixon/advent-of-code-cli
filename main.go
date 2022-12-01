@@ -23,7 +23,7 @@ var (
 	sessionToken = app.Flag("session", "Your session token. Visit https://blog.ajn.me/aoc-session for instructions to get this.").Envar("AOC_SESSION").Required().String()
 	lang         = app.Flag("lang", "Which language the boilerplate code should be generated in.").Default("go").String()
 	year         = app.Flag("year", "The year to be used.").Default(fmt.Sprintf("%d", time.Now().Year())).Int()
-	)
+)
 
 func main() {
 	app.Version(Version)
@@ -33,14 +33,15 @@ func main() {
 		fmt.Printf("Today: %d day %d\n", *year, *day)
 		fmt.Printf("Bootstrapping for %s\n", *lang)
 
-		url := fmt.Sprintf("http://adventofcode.com/%d/day/%d/input", *year, *day)
-		//fmt.Println(url)
-		req, err := http.NewRequest("POST", url, nil)
+		url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", *year, *day)
+		req, err := http.NewRequest("GET", url, nil)
 		check(err)
 
-		cookie := http.Cookie{Name: "session", Value: *sessionToken}
+		cookie := http.Cookie{Name: "session", Value: *sessionToken, Domain: ".adventofcode.com", Path: "/"}
 		req.AddCookie(&cookie)
+		req.Header.Set("User-Agent", "github.com/AnthonyNixon/advent-of-code-boilerplate by Anthony@Nixon.dev")
 		var client = &http.Client{}
+		fmt.Printf("%v+", req)
 		resp, err := client.Do(req)
 		check(err)
 		defer resp.Body.Close()
