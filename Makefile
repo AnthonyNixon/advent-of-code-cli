@@ -51,16 +51,19 @@ run: ## run cli
 help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
-files: languages/boilerplate.go languages/boilerplate.py main.go
-	args=' -w 0'
-	environment=$(shell uname)
-    ifeq ($(environment), Darwin)
-    	args=''
-    endif
+ENVIRONMENT=$(shell uname)
+ifeq ($(ENVIRONMENT), Darwin)
+BASE64ARGS =
+endif
 
+ifeq ($(UNAME), Linux)
+BASE64ARGS = -w 0
+endif
+
+files: languages/boilerplate.go languages/boilerplate.py main.go
 	echo 'package main' > langs.go
-	echo "const golang = \"$$(base64$(args) languages/boilerplate.go)\"" >> langs.go
-	echo "const python = \"$$(base64$(args) languages/boilerplate.py)\"" >> langs.go
+	echo "const golang = \"$$(base64 ${BASE64ARGS} languages/boilerplate.go)\"" >> langs.go
+	echo "const python = \"$$(base64 ${BASE64ARGS} languages/boilerplate.py)\"" >> langs.go
 
 
 
