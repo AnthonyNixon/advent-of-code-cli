@@ -10,11 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-  semantic-get-next-version:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Semantic Release
+      - name: Set next version
         uses: cycjimmy/semantic-release-action@v3
         with:
           dry_run: true
@@ -22,16 +18,9 @@ jobs:
             @semantic-release/exec
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-  build-aoc:
-    runs-on: ubuntu-latest
-    steps:
       - name: Build Binaries
         run: make binaries
-
-  semantic-release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Semantic Release
+      - name: Release next version
         uses: cycjimmy/semantic-release-action@v3
         with:
           extra_plugins: |
