@@ -12,7 +12,7 @@ publish:
       - path: 'bin/darwin/aoc-darwin-amd64'
         name: 'aoc-${nextRelease.version}-darwin-amd64'
         label: 'aoc-darwin'
-      - path: 'bin/debian/aoc-darwin-amd64'
+      - path: 'bin/debian/aoc-debian-amd64'
         name: 'aoc-${nextRelease.version}-debian-amd64'
         label: 'aoc-debian'
       - path: 'bin/windows/aoc.exe'
