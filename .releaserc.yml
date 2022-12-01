@@ -8,6 +8,8 @@ prepare:
     cmd: 'export version=${nextRelease.version}'
   - path: '@semantic-release/exec'
     cmd: 'make binaries'
+
+publish:
   - path: "@semantic-release/github"
     assets:
       - path: 'bin/darwin/aoc'
@@ -19,7 +21,7 @@ prepare:
       - path: 'bin/windows/aoc.exe'
         name: 'aoc-${nextRelease.version}-windows-exe'
         label: 'aoc-windows-exe'
-publish: "@semantic-release/github"
+
 success: false
 fail: false
 branches:
