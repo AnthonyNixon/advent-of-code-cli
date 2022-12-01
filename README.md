@@ -2,9 +2,8 @@
 This tool will automatically download the input file for [AOC's challenge](http://adventofcode.com/) and provide boilerplate code to open the input file so you can immediately start coding. 
 
 
-
 ### AOC Session Cookie is REQUIRED
-[Instructions for retreving](https://blog.ajn.me/aoc-session/)
+[Instructions for retreving](https://github.com/AnthonyNixon/advent-of-code-boilerplate/blob/main/docs/setup/session.md)
 
 Add this session to an environment variable named AOC_SESSION. (If you cannot set an environment variable, or don't want to, you can run the script with the flag --session <your session token> instead.
 

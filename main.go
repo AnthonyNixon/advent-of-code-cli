@@ -1,13 +1,12 @@
 package main
 
 import (
+	new_day "github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/new-day"
+	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/templates"
+	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/token"
 	"os"
 
-	"encoding/base64"
 	"fmt"
-	"io/ioutil"
-	"net/http"
-	"strings"
 	"time"
 
 	"github.com/alecthomas/kingpin"
@@ -31,91 +30,12 @@ func main() {
 	case version.FullCommand():
 		fmt.Println(Version)
 	case newDay.FullCommand():
-		fmt.Printf("Today: %d day %d\n", *year, *day)
-		fmt.Printf("Bootstrapping for %s\n", *lang)
+		token.SetSessionToken(*sessionToken)
+		templates.SetLanguage(*lang)
+		templates.Initialize()
 
-		url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", *year, *day)
-		req, err := http.NewRequest("GET", url, nil)
-		check(err)
-
-		cookie := http.Cookie{Name: "session", Value: *sessionToken, Domain: ".adventofcode.com", Path: "/"}
-		req.AddCookie(&cookie)
-		req.Header.Set("User-Agent", "github.com/AnthonyNixon/advent-of-code-boilerplate by Anthony@Nixon.dev")
-		var client = &http.Client{}
-		resp, err := client.Do(req)
-		check(err)
-		defer resp.Body.Close()
-
-		body, err := ioutil.ReadAll(resp.Body)
-		check(err)
-
-		//fmt.Println(string(body))
-
-		dayString := fmt.Sprintf("%d", *day)
-
-		if *day < 10 {
-			dayString = "0" + dayString
-		}
-
-		directory := fmt.Sprintf("%d/day%s/", *year, dayString)
-		fmt.Println("Directory: " + directory)
-
-		dirExists, err := exists(directory)
-		check(err)
-
-		if !dirExists {
-			os.MkdirAll(directory, 0777)
-			f, err := os.Create(directory + "input.txt")
-			check(err)
-
-			f.WriteString(string(body))
-			f.Close()
-
-			f, err = os.Create(directory + "input-test.txt")
-			check(err)
-
-			f.WriteString("")
-			f.Close()
-
-			switch strings.ToLower(*lang) {
-			case "go":
-				f, err := os.Create(directory + "main.go")
-				check(err)
-				decoded, err := base64.StdEncoding.DecodeString(golang)
-				check(err)
-
-				f.WriteString(string(decoded))
-				f.Close()
-			case "python":
-				f, err := os.Create(directory + "main.py")
-				check(err)
-				decoded, err := base64.StdEncoding.DecodeString(python)
-				check(err)
-
-				f.WriteString(string(decoded))
-				f.Close()
-			}
-		} else {
-			fmt.Printf("Day already initialized. Please delete this day's directory to re-initialize if necessary.")
-		}
+		new_day.NewDay(*year, *day)
 	}
 
 	println()
-}
-
-func exists(path string) (bool, error) {
-	_, err := os.Stat(path)
-	if err == nil {
-		return true, nil
-	}
-	if os.IsNotExist(err) {
-		return false, nil
-	}
-	return true, err
-}
-
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
 }
