@@ -6,23 +6,13 @@ generateNotes: "@semantic-release/release-notes-generator"
 verifyRelease:
   - path: '@semantic-release/exec'
     cmd: 'echo ${nextRelease.version} > .version'
-prepare:
-  - path: '@semantic-release/exec'
-    cmd: 'export version=${nextRelease.version}'
-  - path: '@semantic-release/exec'
-    cmd: 'make files'
-  - path: '@semantic-release/exec'
-    cmd: 'cat langs.go'
-  - path: '@semantic-release/exec'
-    cmd: 'make binaries'
-
 publish:
   - path: "@semantic-release/github"
     assets:
-      - path: 'bin/darwin/aoc'
+      - path: 'bin/darwin/aoc-darwin-amd64'
         name: 'aoc-${nextRelease.version}-darwin-amd64'
         label: 'aoc-darwin'
-      - path: 'bin/debian/aoc'
+      - path: 'bin/debian/aoc-darwin-amd64'
         name: 'aoc-${nextRelease.version}-debian-amd64'
         label: 'aoc-debian'
       - path: 'bin/windows/aoc.exe'

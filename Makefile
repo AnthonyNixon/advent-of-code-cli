@@ -1,6 +1,6 @@
 PACKAGES=$(shell go get)
 SOURCE_FILES=$(shell find . -name '*.go' -not -path '*vendor*')
-VERSION?=${version}
+VERSION?=$(shell cat .version 2> /dev/null || echo "local")
 BINARY:=aoc
 
 .PHONY: all build check clean coverage fmt help lint test vet binaries files
@@ -52,7 +52,15 @@ help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
 files: languages/boilerplate.go languages/boilerplate.py main.go
+	args=''
+	environment=$(shell uname)
+    ifeq ($(environment), Linux)
+    	args = ' -w 0'
+    endif
+
 	echo 'package main' > langs.go
-	echo "const golang = \"$$(base64 languages/boilerplate.go)\"" >> langs.go
-	echo "const python = \"$$(base64 languages/boilerplate.py)\"" >> langs.go
+	echo "const golang = \"$$(base64$(args) languages/boilerplate.go)\"" >> langs.go
+	echo "const python = \"$$(base64$(args) languages/boilerplate.py)\"" >> langs.go
+
+
 
