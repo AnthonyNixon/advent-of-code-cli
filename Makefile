@@ -52,10 +52,10 @@ help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
 files: languages/boilerplate.go languages/boilerplate.py main.go
-	args=''
+	args=' -w 0'
 	environment=$(shell uname)
-    ifeq ($(environment), Linux)
-    	args = ' -w 0'
+    ifeq ($(environment), Darwin)
+    	args=''
     endif
 
 	echo 'package main' > langs.go
