@@ -17,18 +17,19 @@ var (
 	Version string
 	app     = kingpin.New("main", "CLI to boilerplate code for each day of the advent of code")
 
-	newDay = app.Command("get", "Bootstrap a new day for aoc")
-	day    = newDay.Arg("dayNum", "The day to pull inputs for").Default(fmt.Sprintf("%d", time.Now().Day())).Int()
+	version = app.Command("version", "Version Information")
 
-	sessionToken = app.Flag("session", "Your session token. Visit https://github.com/AnthonyNixon/advent-of-code-boilerplate/blob/main/docs/setup/session.md for instructions.").Envar("AOC_SESSION").Required().String()
-	lang         = app.Flag("lang", "Which language the boilerplate code should be generated in.").Default("go").String()
-	year         = app.Flag("year", "The year to be used.").Default(fmt.Sprintf("%d", time.Now().Year())).Int()
+	newDay       = app.Command("get", "Bootstrap a new day for aoc")
+	day          = newDay.Arg("dayNum", "The day to pull inputs for").Default(fmt.Sprintf("%d", time.Now().Day())).Int()
+	sessionToken = newDay.Flag("session", "Your session token. Visit https://github.com/AnthonyNixon/advent-of-code-boilerplate/blob/main/docs/setup/session.md for instructions.").Envar("AOC_SESSION").Required().String()
+	lang         = newDay.Flag("lang", "Which language the boilerplate code should be generated in.").Default("go").String()
+	year         = newDay.Flag("year", "The year to be used.").Default(fmt.Sprintf("%d", time.Now().Year())).Int()
 )
 
 func main() {
-	app.Version(Version)
-
 	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
+	case version.FullCommand():
+		fmt.Println(Version)
 	case newDay.FullCommand():
 		fmt.Printf("Today: %d day %d\n", *year, *day)
 		fmt.Printf("Bootstrapping for %s\n", *lang)
@@ -98,6 +99,8 @@ func main() {
 			fmt.Printf("Day already initialized. Please delete this day's directory to re-initialize if necessary.")
 		}
 	}
+
+	println()
 }
 
 func exists(path string) (bool, error) {
