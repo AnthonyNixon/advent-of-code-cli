@@ -10,6 +10,8 @@ prepare:
     cmd: 'make files'
   - path: '@semantic-release/exec'
     cmd: 'cat langs.go'
+  - path: '@semantic-release/exec'
+    cmd: 'make binaries'
 
 publish:
   - path: "@semantic-release/github"
