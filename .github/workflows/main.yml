@@ -20,5 +20,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Test Version
-        run: echo $VERSION
+        run: cat .version
         shell: bash
