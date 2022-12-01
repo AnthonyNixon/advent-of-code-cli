@@ -53,6 +53,6 @@ help: ## this help
 
 files: languages/boilerplate.go languages/boilerplate.py main.go
 	echo 'package main' > langs.go
-	echo "const golang = \"$$(cat languages/boilerplate.go | base64)\"" >> langs.go
-	echo "const python = \"$$(cat languages/boilerplate.py | base64)\"" >> langs.go
+	echo "const golang = \"$$(base64 languages/boilerplate.go)\"" >> langs.go
+	echo "const python = \"$$(base64 languages/boilerplate.py)\"" >> langs.go
 
