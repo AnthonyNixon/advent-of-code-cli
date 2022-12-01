@@ -7,7 +7,9 @@ prepare:
   - path: '@semantic-release/exec'
     cmd: 'export version=${nextRelease.version}'
   - path: '@semantic-release/exec'
-    cmd: 'make binaries'
+    cmd: 'make files'
+  - path: '@semantic-release/exec'
+    cmd: 'cat langs.go'
 
 publish:
   - path: "@semantic-release/github"
