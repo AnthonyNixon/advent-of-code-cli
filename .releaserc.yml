@@ -3,6 +3,9 @@ tagFormat: ${version}
 verifyConditions: "@semantic-release/github"
 analyzeCommits: "@semantic-release/commit-analyzer"
 generateNotes: "@semantic-release/release-notes-generator"
+verifyRelease:
+  - path: '@semantic-release/exec'
+    cmd: 'export VERSION=${nextRelease.version}'
 prepare:
   - path: '@semantic-release/exec'
     cmd: 'export version=${nextRelease.version}'
