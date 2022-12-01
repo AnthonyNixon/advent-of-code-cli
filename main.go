@@ -34,7 +34,6 @@ func main() {
 		fmt.Printf("Bootstrapping for %s\n", *lang)
 
 		url := fmt.Sprintf("https://adventofcode.com/%d/day/%d/input", *year, *day)
-		fmt.Println(url)
 		req, err := http.NewRequest("GET", url, nil)
 		check(err)
 
