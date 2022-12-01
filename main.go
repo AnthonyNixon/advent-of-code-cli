@@ -20,7 +20,7 @@ var (
 	newDay = app.Command("get", "Bootstrap a new day for aoc")
 	day    = newDay.Arg("dayNum", "The day to pull inputs for").Default(fmt.Sprintf("%d", time.Now().Day())).Int()
 
-	sessionToken = app.Flag("session", "Your session token. Visit https://blog.ajn.me/aoc-session for instructions to get this.").Envar("AOC_SESSION").Required().String()
+	sessionToken = app.Flag("session", "Your session token. Visit https://github.com/AnthonyNixon/advent-of-code-boilerplate/blob/main/docs/setup/session.md for instructions.").Envar("AOC_SESSION").Required().String()
 	lang         = app.Flag("lang", "Which language the boilerplate code should be generated in.").Default("go").String()
 	year         = app.Flag("year", "The year to be used.").Default(fmt.Sprintf("%d", time.Now().Year())).Int()
 )
