@@ -3,6 +3,22 @@ tagFormat: ${version}
 verifyConditions: "@semantic-release/github"
 analyzeCommits: "@semantic-release/commit-analyzer"
 generateNotes: "@semantic-release/release-notes-generator"
+prepare:
+  - path: '@semantic-release/exec'
+    cmd: 'export version=${nextRelease.version}'
+  - path: '@semantic-release/exec'
+    cmd: 'make binaries'
+  - path: "@semantic-release/github"
+    assets:
+      - path: 'bin/darwin/aoc'
+        name: 'aoc-${nextRelease.version}-darwin-amd64'
+        label: 'aoc-darwin'
+      - path: 'bin/debian/aoc'
+        name: 'aoc-${nextRelease.version}-debian-amd64'
+        label: 'aoc-debian'
+      - path: 'bin/windows/aoc.exe'
+        name: 'aoc-${nextRelease.version}-windows-exe'
+        label: 'aoc-windows-exe'
 publish: "@semantic-release/github"
 success: false
 fail: false

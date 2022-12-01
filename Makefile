@@ -1,7 +1,7 @@
 PACKAGES=$(shell go get)
 SOURCE_FILES=$(shell find . -name '*.go' -not -path '*vendor*')
-VERSION?=$(shell git describe --match 'v[0-9].*' --dirty='.m' --always --tags)
-BINARY:=aoc_${VERSION}
+VERSION?=${version}
+BINARY:=aoc
 
 .PHONY: all build check clean coverage fmt help lint test vet binaries files
 
