@@ -53,17 +53,18 @@ help: ## this help
 
 ENVIRONMENT=$(shell uname)
 ifeq ($(ENVIRONMENT), Darwin)
-BASE64ARGS =
+	BASE64CALL = base64
 endif
 
 ifeq ($(UNAME), Linux)
-BASE64ARGS = -w 0
+	BASE64CALL = base64 -w 0
 endif
 
 files: languages/boilerplate.go languages/boilerplate.py main.go
 	echo 'package main' > langs.go
-	echo "const golang = \"$$(base64 ${BASE64ARGS} languages/boilerplate.go)\"" >> langs.go
-	echo "const python = \"$$(base64 ${BASE64ARGS} languages/boilerplate.py)\"" >> langs.go
+	echo "const golang = \"$$(${BASE64CALL} languages/boilerplate.go)\"" >> langs.go
+	echo "const python = \"$$(${BASE64CALL} languages/boilerplate.py)\"" >> langs.go
+	cat langs.go
 
 
 
