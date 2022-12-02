@@ -66,6 +66,8 @@ files: $(TEMPLATE_DIR)/*_template.*
 	@echo "Running $@"
 	@echo 'package templates' > $(INIT_FILE)
 	@echo 'func Initialize() {' >> $(INIT_FILE)
+	@echo 'templates = make(map[string]string)' >> $(INIT_FILE)
+	@echo 'fileExtensions = make(map[string]string)' >> $(INIT_FILE)
 	@for file in $^ ; do \
 		base_name=$$(basename $${file}) ; \
 		template_name=$$(echo "$${base_name%.*}") ; \
