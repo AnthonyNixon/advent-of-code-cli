@@ -2,14 +2,15 @@ package new_day
 
 import (
 	"fmt"
+
 	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/input"
-	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/templates"
+	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/templating"
 	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/utils"
 )
 
 func NewDay(year int, day int) {
 	fmt.Printf("Initializing %d day %d\n", year, day)
-	fmt.Printf("Bootstrapping in %s\n", templates.GetLanguage())
+	fmt.Printf("Bootstrapping in %s\n", templating.GetLanguage())
 
 	exists, err := utils.CheckIfDirectoryExists(year, day)
 	utils.Check(err)
@@ -24,5 +25,5 @@ func NewDay(year int, day int) {
 	err = input.SaveInputToFile(year, day, directory)
 	utils.Check(err)
 
-	templates.CreateTemplateFile(directory)
+	templating.CreateTemplateFile(directory)
 }
