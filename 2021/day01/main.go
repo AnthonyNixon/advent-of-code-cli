@@ -2,8 +2,9 @@ package main
 
 import (
 	"bufio"
-	"flag"
 	"os"
+	"flag"
+	"fmt"
 )
 
 func main() {
@@ -19,6 +20,7 @@ func main() {
 	input_file, err := readLines(filename)
 	check(err)
 	// Your Code goes below!
+
 
 }
 

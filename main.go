@@ -16,7 +16,8 @@ var (
 	Version string
 	app     = kingpin.New("main", "CLI to boilerplate code for each day of the advent of code")
 
-	version = app.Command("version", "Version Information")
+	version        = app.Command("version", "Version Information")
+	template_debug = app.Command("templates", "Shows all current templates configured in the application")
 
 	newDay       = app.Command("get", "Bootstrap a new day for aoc")
 	day          = newDay.Arg("dayNum", "The day to pull inputs for").Default(fmt.Sprintf("%d", time.Now().Day())).Int()
@@ -25,6 +26,10 @@ var (
 	year         = newDay.Flag("year", "The year to be used.").Default(fmt.Sprintf("%d", time.Now().Year())).Int()
 )
 
+func init() {
+	templates.Initialize()
+}
+
 func main() {
 	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
 	case version.FullCommand():
@@ -32,10 +37,9 @@ func main() {
 	case newDay.FullCommand():
 		token.SetSessionToken(*sessionToken)
 		templates.SetLanguage(*lang)
-		templates.Initialize()
 
 		new_day.NewDay(*year, *day)
+	case template_debug.FullCommand():
+		templates.Debug()
 	}
-
-	println()
 }
