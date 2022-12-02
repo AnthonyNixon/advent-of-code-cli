@@ -11,13 +11,13 @@ publish:
     assets:
       - path: 'bin/darwin/aoc-darwin-amd64'
         name: 'aoc-${nextRelease.version}-darwin-amd64'
-        label: 'aoc-darwin'
+        label: 'aoc-darwin-amd64'
       - path: 'bin/debian/aoc-debian-amd64'
         name: 'aoc-${nextRelease.version}-debian-amd64'
-        label: 'aoc-debian'
-      - path: 'bin/windows/aoc.exe'
-        name: 'aoc-${nextRelease.version}-windows-exe'
-        label: 'aoc-windows-exe'
+        label: 'aoc-debian-amd64'
+      - path: 'bin/windows/aoc-amd64.exe'
+        name: 'aoc-${nextRelease.version}-windows-amd64.exe'
+        label: 'aoc-windows-amd64.exe'
 
 success: false
 fail: false
