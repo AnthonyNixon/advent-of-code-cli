@@ -25,7 +25,7 @@ func CheckIfDirectoryExists(year int, day int) (exists bool, err error) {
 	if os.IsNotExist(err) {
 		exists = false
 	}
-	return
+	return exists, nil
 }
 
 func InitializeDirectory(year int, day int) (directory string) {
