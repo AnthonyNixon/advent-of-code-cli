@@ -63,12 +63,12 @@ endif
 TEMPLATE_DIR = templates
 INIT_FILE = aoc-boilerplate/templates/init.go
 files: $(TEMPLATE_DIR)/*_template.*
-	@echo "Running $@"
-	@echo 'package templates' > $(INIT_FILE)
-	@echo 'func Initialize() {' >> $(INIT_FILE)
-	@echo '  templates = make(map[string]string)' >> $(INIT_FILE)
-	@echo '  fileExtensions = make(map[string]string)' >> $(INIT_FILE)
-	@for file in $^ ; do \
+	echo "Running $@"
+	echo 'package templates' > $(INIT_FILE)
+	echo 'func Initialize() {' >> $(INIT_FILE)
+	echo '  templates = make(map[string]string)' >> $(INIT_FILE)
+	echo '  fileExtensions = make(map[string]string)' >> $(INIT_FILE)
+	for file in $^ ; do \
 		base_name=$$(basename $${file}) ; \
 		template_name=$$(echo "$${base_name%.*}") ; \
         extension=$$(echo "$${file#*.}") ; \
@@ -76,7 +76,7 @@ files: $(TEMPLATE_DIR)/*_template.*
 		echo "  templates[\"$${lang}\"] = \"$$(${BASE64CALL} $${file})\"" >> $(INIT_FILE) ; \
 		echo "  fileExtensions[\"$${lang}\"] = \"$${extension}\"" >> $(INIT_FILE) ; \
 	done
-	@echo '}' >> $(INIT_FILE)
+	echo '}' >> $(INIT_FILE)
 
 
 
