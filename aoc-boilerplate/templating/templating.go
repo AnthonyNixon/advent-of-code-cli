@@ -45,7 +45,7 @@ func LanguageValid(language string) (valid bool) {
 	if _, ok := templates[language]; !ok {
 		valid = false
 	}
-	if _, ok := fileExtensions[language]; ok {
+	if _, ok := fileExtensions[language]; !ok {
 		valid = false
 	}
 
