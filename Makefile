@@ -51,32 +51,8 @@ run: ## run cli
 help: ## this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST) | sort
 
-ENVIRONMENT=$(shell uname)
-ifeq ($(ENVIRONMENT), Darwin)
-	BASE64CALL = base64
-endif
-
-ifeq ($(UNAME), Linux)
-	BASE64CALL = base64 -w 0
-endif
-
-TEMPLATE_DIR = templates
-INIT_FILE = aoc-boilerplate/templates/init.go
-files: $(TEMPLATE_DIR)/*_template.*
-	echo "Running $@"
-	echo 'package templates' > $(INIT_FILE)
-	echo 'func Initialize() {' >> $(INIT_FILE)
-	echo '  templates = make(map[string]string)' >> $(INIT_FILE)
-	echo '  fileExtensions = make(map[string]string)' >> $(INIT_FILE)
-	for file in $^ ; do \
-		base_name=$$(basename $${file}) ; \
-		template_name=$$(echo "$${base_name%.*}") ; \
-		extension=$$(echo "$${file#*.}") ; \
-		lang=$$(echo "$${base_name%_*}") ; \
-		echo "  templates[\"$${lang}\"] = \"$$(${BASE64CALL} $${file})\"" >> $(INIT_FILE) ; \
-		echo "  fileExtensions[\"$${lang}\"] = \"$${extension}\"" >> $(INIT_FILE) ; \
-	done
-	echo '}' >> $(INIT_FILE)
+files:
+	python3 build/encode_templates.py
 
 
 
