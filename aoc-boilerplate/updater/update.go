@@ -5,6 +5,9 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strings"
+
+	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/utils"
 
 	"github.com/inconshreveable/go-update"
 )
@@ -64,5 +67,33 @@ func Update(newVer string, currentVer string, build string) (err error) {
 	}
 
 	fmt.Printf("Successfully updated to version %s\n", newVer)
+	return
+}
+
+func UpdateAvailable(currentVer string) (newUpdate bool, latest string) {
+	if currentVer == "local" {
+		currentVer = "0.0.0"
+	}
+
+	latest, err := getLatestTag()
+	utils.Check(err)
+
+	newUpdate = newMinor(currentVer, latest)
+	return
+}
+
+func newMinor(currentVer string, latestVer string) (new bool) {
+	currentMajorMinor := getMajorMinor(currentVer)
+	latestMajorMinor := getMajorMinor(latestVer)
+
+	compare := strings.Compare(currentMajorMinor, latestMajorMinor)
+	new = compare == -1
+
+	return
+}
+
+func getMajorMinor(version string) (majorMinor string) {
+	parts := strings.Split(version, ".")
+	majorMinor = strings.Join(parts[:len(parts)-1], ".")
 	return
 }

@@ -19,7 +19,7 @@ for filename in os.listdir(directory):
         filesToEncode.append((language, extension, file))
 
 content = """\
-package templates
+package templating
 
 func Initialize() {
     templates = make(map[string]string)
@@ -33,7 +33,7 @@ for (language, extension, file) in filesToEncode:
     content = content + f'\n    fileExtensions["{language}"] = "{extension}"'
 content = content + "\n}"
 
-with open("aoc-boilerplate/templates/init.go","w") as f:
+with open("aoc-boilerplate/templating/init.go","w") as f:
     f.writelines(content)
 
 

@@ -1,4 +1,4 @@
-package templates
+package templating
 
 func Initialize() {
     templates = make(map[string]string)

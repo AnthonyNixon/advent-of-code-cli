@@ -1,10 +1,11 @@
-package templates
+package templating
 
 import (
 	"encoding/base64"
 	"fmt"
-	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/utils"
 	"os"
+
+	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/utils"
 )
 
 var language string
@@ -39,6 +40,18 @@ func GetFileExtension() (extension string) {
 	return
 }
 
+func LanguageValid(language string) (valid bool) {
+	valid = true
+	if _, ok := templates[language]; !ok {
+		valid = false
+	}
+	if _, ok := fileExtensions[language]; ok {
+		valid = false
+	}
+
+	return
+}
+
 func Debug() {
 	fmt.Printf("Currently configured templates:\n")
 	for k, v := range templates {
@@ -49,4 +62,13 @@ func Debug() {
 	for k, v := range fileExtensions {
 		fmt.Printf("\t- %s: .%s\n", k, v)
 	}
+}
+
+func Languages() {
+	fmt.Printf("Currently configured languages:\n")
+	for k, _ := range templates {
+		fmt.Printf("\t- %s\n", k)
+	}
+
+	fmt.Printf("\nTo use a configured language:\n\t- pass it in with the --lang flag\n\t- set the AOC_LANG environment variable\n")
 }
