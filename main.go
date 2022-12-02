@@ -38,16 +38,26 @@ func init() {
 }
 
 func main() {
+	command := kingpin.MustParse(app.Parse(os.Args[1:]))
 	// Check for new Minor version. Prompt update if there's a new Major/Minor version
+
 	updatemessage := make(chan string)
 	go func() {
+		if command == update.FullCommand() {
+			updatemessage <- ""
+			return
+		}
+
 		newAvailable, latest := updater.UpdateAvailable(GetVersion())
 		if newAvailable {
 			updatemessage <- fmt.Sprintf("\nCurrent Version: %s\nNew minor version (%s) available! Run `aoc update` to automatically update\n", GetVersion(), latest)
+			return
 		}
+
+		updatemessage <- ""
 	}()
 
-	switch kingpin.MustParse(app.Parse(os.Args[1:])) {
+	switch command {
 	case version.FullCommand():
 		fmt.Printf("%s@%s\n", GetBuild(), GetVersion())
 	case newDay.FullCommand():
