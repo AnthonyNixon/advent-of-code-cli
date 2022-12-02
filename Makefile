@@ -71,8 +71,8 @@ files: $(TEMPLATE_DIR)/*_template.*
 	for file in $^ ; do \
 		base_name=$$(basename $${file}) ; \
 		template_name=$$(echo "$${base_name%.*}") ; \
-        extension=$$(echo "$${file#*.}") ; \
-        lang=$$(echo "$${base_name%_*}") ; \
+		extension=$$(echo "$${file#*.}") ; \
+		lang=$$(echo "$${base_name%_*}") ; \
 		echo "  templates[\"$${lang}\"] = \"$$(${BASE64CALL} $${file})\"" >> $(INIT_FILE) ; \
 		echo "  fileExtensions[\"$${lang}\"] = \"$${extension}\"" >> $(INIT_FILE) ; \
 	done
