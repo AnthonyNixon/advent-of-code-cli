@@ -50,7 +50,9 @@ func main() {
 	case update.FullCommand():
 		err := updater.Update(*updateVersion, GetVersion(), GetBuild())
 		if err != nil {
-			if err.Error() != updater.UpToDateMessage {
+			if err.Error() == updater.UpToDateMessage {
+				println(updater.UpToDateMessage)
+			} else {
 				panic(err)
 			}
 		}
