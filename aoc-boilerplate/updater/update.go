@@ -47,7 +47,6 @@ func Update(newVer string, currentVer string, build string) (err error) {
 		fmt.Printf("Latest Tag found: %s\n", newVer)
 	}
 
-	fmt.Printf("'%s' == '%s'", newVer, currentVer)
 	if newVer == currentVer {
 		return errors.New(UpToDateMessage)
 	}
