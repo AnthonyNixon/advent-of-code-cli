@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"flag"
+	"fmt"
 	"os"
 )
 
@@ -18,8 +19,15 @@ func main() {
 	}
 	input_file, err := readLines(filename)
 	check(err)
-	// Your Code goes below!
 
+	// Your Code goes below!
+	part1, part2 := 0, 0
+	for _, line := range input_file {
+
+	}
+
+	fmt.Printf("Part1: %v\n", part1)
+	fmt.Printf("Part2: %v\n", part2)
 }
 
 func check(e error) {

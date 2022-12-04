@@ -3,6 +3,8 @@ package main
 import (
 	"os"
 
+	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/utils"
+
 	new_day "github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/new-day"
 	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/templating"
 	"github.com/anthonynixon/advent-of-code-boilerplate/aoc-boilerplate/token"
@@ -24,10 +26,10 @@ var (
 	languages      = app.Command("languages", "Shows all currently configured languages")
 
 	newDay       = app.Command("get", "Bootstrap a new day for aoc")
-	day          = newDay.Arg("dayNum", "The day to pull inputs for").Default(fmt.Sprintf("%d", time.Now().Day())).Int()
+	day          = newDay.Arg("day", "The day to pull inputs for").Default(utils.GetCurrentDay()).Int()
+	year         = newDay.Flag("year", "The year to be used.").Default(fmt.Sprintf("%d", time.Now().Year())).Int()
 	sessionToken = newDay.Flag("session", "Your session token. Visit https://github.com/AnthonyNixon/advent-of-code-boilerplate/blob/main/docs/setup/session.md for instructions.").Envar("AOC_SESSION").Required().String()
 	lang         = newDay.Flag("lang", "Which language the boilerplate code should be generated in.").Default("go").Envar("AOC_LANG").String()
-	year         = newDay.Flag("year", "The year to be used.").Default(fmt.Sprintf("%d", time.Now().Year())).Int()
 
 	update        = app.Command("update", "Update AOC binary")
 	updateVersion = update.Arg("version", "an optional specified version to updater to").Default("latest").String()
