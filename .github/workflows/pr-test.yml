@@ -3,7 +3,7 @@ name: Advent of Code Boilerplate PR Build/Test
 on: pull_request
 
 jobs:
-  prepare:
+  build-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
