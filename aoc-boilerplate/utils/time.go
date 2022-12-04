@@ -13,7 +13,3 @@ func GetCurrentDay() (day string) {
 	day = fmt.Sprintf("%d", now.Day())
 	return
 }
-
-func GetCurrentYear() (year string) {
-
-}
